@@ -80,6 +80,20 @@ function buildReceipt(promotedItems, {totalPayPrice, totalSaved}) {
 
 function buildReceiptString(receipt) {
   // TODO
+  let lines=['***<没钱赚商店>收据***'];
+  for(let item of receipt.receiptItems)
+  {
+    lines.push(`名称：${item.name}，数量：${item.count}${item.unit}，单价：${item.price.toFixed(2)}(元)，小计：${item.payPrice.toFixed(2)}(元)`);
+  }
+  lines.push('----------------------');
+  lines.push(`总计：${receipt.totalPayPrice.toFixed(2)}(元)`);
+  lines.push(`节省：${receipt.totalSaved.toFixed(2)}(元)`);
+  lines.push('**********************');
+  const notes = lines.join("\n");
+  require(`fs`).writeFileSync('1.txt',notes);
+  return notes;
+
+
 }
 
 module.exports = {
